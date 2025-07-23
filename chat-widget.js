@@ -4,7 +4,7 @@
     if (window.N8nChatWidgetLoaded) return;
     window.N8nChatWidgetLoaded = true;
 
-    // Load font resource - using Poppins for a fresh look
+    // Load font resource - using Poppins for a fresh look (HTTPS)
     const fontElement = document.createElement('link');
     fontElement.rel = 'stylesheet';
     fontElement.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
@@ -206,7 +206,7 @@
             font-size: 14px;
             line-height: 1.6;
             position: relative;
-            white-space: pre-line; /* This preserves line breaks */
+            white-space: pre-line;
         }
 
         .chat-assist-widget .chat-bubble.user-bubble {
@@ -226,7 +226,6 @@
             border: 1px solid var(--chat-color-light);
         }
 
-        /* Typing animation */
         .chat-assist-widget .typing-indicator {
             display: flex;
             align-items: center;
@@ -526,13 +525,13 @@
             responseTimeText: ''
         },
         style: {
-            primaryColor: '#10b981', // Green
-            secondaryColor: '#059669', // Darker green
+            primaryColor: '#10b981',
+            secondaryColor: '#059669',
             position: 'right',
             backgroundColor: '#ffffff',
             fontColor: '#1f2937'
         },
-        suggestedQuestions: [] // Default empty array for suggested questions
+        suggestedQuestions: []
     };
 
     // Merge user settings with defaults
@@ -543,7 +542,6 @@
             style: { 
                 ...defaultSettings.style, 
                 ...window.ChatWidgetConfig.style,
-                // Force green colors if user provided purple
                 primaryColor: window.ChatWidgetConfig.style?.primaryColor === '#854fff' ? '#10b981' : (window.ChatWidgetConfig.style?.primaryColor || '#10b981'),
                 secondaryColor: window.ChatWidgetConfig.style?.secondaryColor === '#6b3fd4' ? '#059669' : (window.ChatWidgetConfig.style?.secondaryColor || '#059669')
             },
@@ -671,10 +669,7 @@
 
     // Function to convert URLs in text to clickable links
     function linkifyText(text) {
-        // URL pattern that matches http, https, ftp links
         const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-        
-        // Convert URLs to HTML links
         return text.replace(urlPattern, function(url) {
             return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-link">${url}</a>`;
         });
@@ -809,7 +804,6 @@
                     questionButton.textContent = question;
                     questionButton.addEventListener('click', () => {
                         submitMessage(question);
-                        // Remove the suggestions after clicking
                         if (suggestedQuestionsContainer.parentNode) {
                             suggestedQuestionsContainer.parentNode.removeChild(suggestedQuestionsContainer);
                         }
@@ -824,13 +818,11 @@
         } catch (error) {
             console.error('Registration error:', error);
             
-            // Remove typing indicator if it exists
             const indicator = messagesContainer.querySelector('.typing-indicator');
             if (indicator) {
                 messagesContainer.removeChild(indicator);
             }
             
-            // Show error message
             const errorMessage = document.createElement('div');
             errorMessage.className = 'chat-bubble bot-bubble';
             errorMessage.textContent = "Sorry, I couldn't connect to the server. Please try again later.";
@@ -845,7 +837,6 @@
         
         isWaitingForResponse = true;
         
-        // Get user info if available
         const email = nameInput ? nameInput.value.trim() : "";
         const name = emailInput ? emailInput.value.trim() : "";
         
@@ -860,13 +851,11 @@
             }
         };
 
-        // Display user message
         const userMessage = document.createElement('div');
         userMessage.className = 'chat-bubble user-bubble';
         userMessage.textContent = messageText;
         messagesContainer.appendChild(userMessage);
         
-        // Show typing indicator
         const typingIndicator = createTypingIndicator();
         messagesContainer.appendChild(typingIndicator);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -882,10 +871,8 @@
             
             const responseData = await response.json();
             
-            // Remove typing indicator
             messagesContainer.removeChild(typingIndicator);
             
-            // Display bot response with clickable links
             const botMessage = document.createElement('div');
             botMessage.className = 'chat-bubble bot-bubble';
             const responseText = Array.isArray(responseData) ? responseData[0].output : responseData.output;
@@ -895,10 +882,8 @@
         } catch (error) {
             console.error('Message submission error:', error);
             
-            // Remove typing indicator
             messagesContainer.removeChild(typingIndicator);
             
-            // Show error message
             const errorMessage = document.createElement('div');
             errorMessage.className = 'chat-bubble bot-bubble';
             errorMessage.textContent = "Sorry, I couldn't send your message. Please try again.";
