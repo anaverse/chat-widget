@@ -1,7 +1,3 @@
-Pasted content
-35.68 KB •1,010 lines
-•
-Formatting may be inconsistent from source
 // Interactive Chat Widget for n8n
 (function() {
     // Initialize widget only once
