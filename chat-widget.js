@@ -7,7 +7,7 @@
     // Load font resource - using Poppins for a fresh look
     const fontElement = document.createElement('link');
     fontElement.rel = 'stylesheet';
-    fontElement.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400 ;500;600;700&display=swap';
+    fontElement.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
     document.head.appendChild(fontElement);
 
     // Apply widget styles with completely different design approach
@@ -373,26 +373,6 @@
             white-space: nowrap;
         }
 
-        .chat-assist-widget .chat-footer {
-            padding: 10px;
-            text-align: center;
-            background: var(--chat-color-surface);
-            border-top: 1px solid var(--chat-color-light);
-        }
-
-        .chat-assist-widget .chat-footer-link {
-            color: var(--chat-color-primary);
-            text-decoration: none;
-            font-size: 12px;
-            opacity: 0.8;
-            transition: var(--chat-transition);
-            font-family: inherit;
-        }
-
-        .chat-assist-widget .chat-footer-link:hover {
-            opacity: 1;
-        }
-
         .chat-assist-widget .suggested-questions {
             display: flex;
             flex-direction: column;
@@ -543,8 +523,7 @@
             logo: '',
             name: '',
             welcomeText: '',
-            responseTimeText: '',
-            
+            responseTimeText: ''
         },
         style: {
             primaryColor: '#10b981', // Green
@@ -600,7 +579,7 @@
         <div class="chat-welcome">
             <h2 class="chat-welcome-title">${settings.branding.welcomeText}</h2>
             <button class="chat-start-btn">
-                <svg xmlns="http://www.w3.org/2000/svg " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
                 Start chatting
@@ -625,21 +604,18 @@
         </div>
     `;
 
-    // Create chat interface without duplicating the header
+    // Create chat interface without footer
     const chatInterfaceHTML = `
         <div class="chat-body">
             <div class="chat-messages"></div>
             <div class="chat-controls">
                 <textarea class="chat-textarea" placeholder="Type your message here..." rows="1"></textarea>
                 <button class="chat-submit">
-                    <svg xmlns="http://www.w3.org/2000/svg " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 2L11 13"></path>
                         <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
                     </svg>
                 </button>
-            </div>
-            <div class="chat-footer">
-                <a class="chat-footer-link" href="${settings.branding.poweredBy.link}" target="_blank">${settings.branding.poweredBy.text}</a>
             </div>
         </div>
     `;
@@ -650,7 +626,7 @@
     const launchButton = document.createElement('button');
     launchButton.className = `chat-launcher ${settings.style.position === 'left' ? 'left-side' : 'right-side'}`;
     launchButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
         </svg>
         <span class="chat-launcher-text">Need help?</span>`;
